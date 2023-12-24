@@ -1,13 +1,13 @@
-import React from 'react'
-import { Button, Text } from 'react-native'
-import PostContainer from '../../components/containers/PostContainer'
-import image from '../../assets/loginBackground.jpg'
-import Post from '../../components/post/Post'
-import PostFeedContainer from '../../components/containers/PostFeedContainer'
-import { SheetManager } from 'react-native-actions-sheet'
+import { Text, View } from "react-native";
 import { router, useLocalSearchParams, Link } from 'expo-router';
+import Post from "../../../components/post/Post";
+import { SheetManager } from 'react-native-actions-sheet'
+import PostFeedContainer from "../../../components/containers/PostFeedContainer";
 
 export default function Page() {
+
+    const params = useLocalSearchParams()
+    const { post } = params
 
     function onComment(id) {
         SheetManager.show('comments-sheet', {
@@ -30,7 +30,7 @@ export default function Page() {
     const suggestions1 = [suggestion1, suggestion1, suggestion2]
     const suggestions2 = [suggestion2, suggestion2, suggestion1]
 
-    
+
 
 
     const media = [
@@ -46,18 +46,8 @@ export default function Page() {
         }
     ]
 
-    function accountRoute() {
-        router.push("account/1")
-    }
-
-    function postRoute() {
-        router.push("post/1")
-    }
-
     return (
         <PostFeedContainer>
-            <Button onPress={accountRoute} title='View account' />
-            <Button onPress={postRoute} title='View post' />
             <Post
                 caption='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco'
                 media={media}
@@ -65,21 +55,6 @@ export default function Page() {
                 onLike={() => console.log("liked post")}
                 onViewProfile={() => console.log('viewing profile')}
             />
-            <Post
-                caption='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco'
-                media={media}
-                onComment={() => onComment(2)}
-                onLike={() => console.log("liked post")}
-                onViewProfile={() => console.log('viewing profile')}
-            />
-            <Post
-                caption='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco'
-                media={media}
-                onComment={() => onComment(3)}
-                onLike={() => console.log("liked post")}
-                onViewProfile={() => console.log('viewing profile')}
-            />
         </PostFeedContainer>
     )
-
 }

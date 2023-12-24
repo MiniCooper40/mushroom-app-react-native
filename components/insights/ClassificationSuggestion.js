@@ -19,7 +19,7 @@ export default function ClassificationSuggestion({ suggestion }) {
     }
 
     return (
-        <View style={{ flexDirection: 'row', gap: 8, paddingVertical: 2 }}>
+        <View style={{ flexDirection: 'row', gap: 8, paddingVertical: 2, flex: 1 }}>
             <Image
                 source={image}
                 style={styles.suggestionImage}
@@ -27,7 +27,7 @@ export default function ClassificationSuggestion({ suggestion }) {
                 contentFit="cover"
                 transition={1000}
             />
-            <View>
+            <View style={{width: '100%'}}>
                 <LabeledText
                     label="Match:"
                     text={name}

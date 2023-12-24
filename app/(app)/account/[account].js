@@ -1,11 +1,11 @@
 import { Text, View } from "react-native";
 import { router, useLocalSearchParams, Link } from 'expo-router';
-import PostProfilePicture from "../../components/post/PostsProfilePicture";
-import LabeledText from '../../components/typography/LabeledText'
-import PostFeedContainer from "../../components/containers/PostFeedContainer";
-import Explore from "../../components/explore/Explore";
-import useTheme from "../../style/useTheme";
-import AccountHeader from "../../components/account/AccountHeader";
+import PostProfilePicture from "../../../components/post/PostsProfilePicture";
+import LabeledText from '../../../components/typography/LabeledText'
+import PostFeedContainer from "../../../components/containers/PostFeedContainer";
+import Explore from "../../../components/explore/Explore";
+import useTheme from "../../../style/useTheme";
+import AccountHeader from "../../../components/account/AccountHeader";
 
 export default function Page() {
 

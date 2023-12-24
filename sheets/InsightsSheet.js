@@ -28,13 +28,14 @@ export default function InsightsSheet({ payload }) {
                 Icon={() => <AntDesign name="close" size={28} color={colors.onPrimary} />}
                 onClickIcon={handleExit}
             />
-            <Vertical style={{ gap: 8 }}>
+            <Vertical style={{ gap: 8, flex: 1 }}>
                 <FlatList
                     data={suggestions}
                     keyExtractor={(item, index) => index}
                     renderItem={({ item }) => {
                         return <ClassificationSuggestion suggestion={item} />
                     }}
+                    style={{}}
                 />
             </Vertical>
         </ActionSheet>

@@ -15,9 +15,11 @@ export default function ExploreImage({ image }) {
     let style = dimensions ? { height: dimensions.height } : undefined
     // let style = dimensions ? { aspectRatio: dimensions.height/dimensions.width } : undefined
 
+    console.log('image style', style)
+
     return (
         <Image
-            style={[styles.exploreImage, style]}
+            style={[styles.exploreImage]}
             source={image}
             placeholder={blurhash}
             contentFit='cover'
@@ -34,7 +36,7 @@ export default function ExploreImage({ image }) {
                 let adjustedWidth = screenWidth
                 let adjustedHeight = aspectRatio * screenWidth
 
-                setDimensions({ width: adjustedWidth, height: adjustedHeight })
+                setDimensions({ width: adjustedWidth, height: adjustedHeight-10 })
             }}
         />
     )

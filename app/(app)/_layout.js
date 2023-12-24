@@ -2,7 +2,7 @@
 import Ionicons from '@expo/vector-icons/build/Ionicons'
 import useAuth from '../../auth/useAuth'
 import useTheme from '../../style/useTheme'
-import {Tabs, Redirect} from 'expo-router'
+import { Tabs, Redirect } from 'expo-router'
 import MaterialIcons from '@expo/vector-icons/build/MaterialIcons'
 import AntDesign from '@expo/vector-icons/build/AntDesign'
 import Feather from '@expo/vector-icons/build/Feather'
@@ -43,60 +43,72 @@ export default function Layout() {
                     },
                     title: "Mycelium",
                     headerRight: () => {
-                        return <HeaderButtons 
-                            openSettings={undefined} 
-                            openNotifications={undefined} 
-                            settingsIcon={()=><Ionicons name="settings-outline" size={24} color={colors.onSecondary} />} 
-                            notificationsIcon={()=><AntDesign name="notification" size={24} color={colors.onSecondary} />}                            
+                        return <HeaderButtons
+                            openSettings={undefined}
+                            openNotifications={undefined}
+                            settingsIcon={() => <Ionicons name="settings-outline" size={24} color={colors.onSecondary} />}
+                            notificationsIcon={() => <AntDesign name="notification" size={24} color={colors.onSecondary} />}
                         />
                     },
                     headerTitle: () => {
-                        return <Image source={logo} style={{width: 140, resizeMode: 'contain'}} />
+                        return <Image source={logo} style={{ width: 140, resizeMode: 'contain' }} />
                     }
                 }}
             >
                 <Tabs.Screen
                     name="index"
-                    options = {{
+                    options={{
                         tabBarLabel: "Home",
                         ...tabBarItemStyle,
-                        tabBarIcon: ({focused, size}) => {
+                        tabBarIcon: ({ focused, size }) => {
                             let opacity = focused ? 0.5 : 1
-                            return <Ionicons style={{opacity: opacity}} name="home-outline" size={size} color={colors.onSecondary} />
+                            return <Ionicons style={{ opacity: opacity }} name="home-outline" size={size} color={colors.onSecondary} />
                         }
                     }}
                 />
                 <Tabs.Screen
                     name="explore"
-                    options = {{
+                    options={{
                         tabBarLabel: "Explore",
                         ...tabBarItemStyle,
-                        tabBarIcon: ({focused, size}) => {
+                        tabBarIcon: ({ focused, size }) => {
                             let opacity = focused ? 0.5 : 1
-                            return <AntDesign style={{opacity: opacity}} name="search1" size={size} color={colors.onSecondary} />
+                            return <AntDesign style={{ opacity: opacity }} name="search1" size={size} color={colors.onSecondary} />
                         }
                     }}
                 />
                 <Tabs.Screen
                     name="capture"
-                    options = {{
+                    options={{
                         tabBarLabel: "Capture",
                         ...tabBarItemStyle,
-                        tabBarIcon: ({focused, size}) => {
+                        tabBarIcon: ({ focused, size }) => {
                             let opacity = focused ? 0.5 : 1
-                            return <Ionicons style={{opacity: opacity}} name="camera-outline" size={size} color={colors.onSecondary} />
+                            return <Ionicons style={{ opacity: opacity }} name="camera-outline" size={size} color={colors.onSecondary} />
                         }
                     }}
                 />
                 <Tabs.Screen
                     name="profile"
-                    options = {{
+                    options={{
                         tabBarLabel: "Profile",
                         ...tabBarItemStyle,
-                        tabBarIcon: ({focused, size}) => {
+                        tabBarIcon: ({ focused, size }) => {
                             let opacity = focused ? 0.5 : 1
-                            return <Ionicons style={{opacity: opacity}} name="person-outline" size={size} color={colors.onSecondary} />
+                            return <Ionicons style={{ opacity: opacity }} name="person-outline" size={size} color={colors.onSecondary} />
                         }
+                    }}
+                />
+                <Tabs.Screen
+                    name="account/[account]"
+                    options={{
+                        href: null
+                    }}
+                />
+                <Tabs.Screen
+                    name="post/[post]"
+                    options={{
+                        href: null
                     }}
                 />
             </Tabs >

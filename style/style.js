@@ -166,7 +166,8 @@ function createStyle(colors) {
       exploreImage: {
         // maxHeight: 300,
         resizeMode: 'contain',
-        backgroundColor: 'red'
+        flex: 1,
+        height: 240
       }
 })
 }

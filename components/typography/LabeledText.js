@@ -7,13 +7,13 @@ export default function LabeledText({ label, text, textStyle={}, containerStyle=
 
     const fontStyle = {
         fontSize: 14,
-        color: colors.onPrimary
+        color: colors.onPrimary,
     }
 
     return (
         <View style={[{ flexDirection: 'row', gap: 8 }, containerStyle]}>
             <Text style={[fontStyle, { fontWeight: 'bold' }]}>{label}</Text>
-            <Text style={fontStyle}>{text}</Text>
+            <Text style={[fontStyle, {flexWrap: 'wrap', flex: 1}]}>{text}</Text>
         </View>
     )
 }
