@@ -21,7 +21,7 @@ export default function PostInteractionButtons({iconSize=28, onLike, onComment, 
             <Vertical style={{justifyContent: 'center', paddingRight: 10}}>
                 <IconButton onClick={onLike} title="123" Icon={() => <AntDesign style={iconStyle} name="like1" size={iconSize} color={colors.primary} />} />
                 <IconButton onClick={onComment} title="123" Icon={() => <FontAwesome style={iconStyle} name="comment" size={iconSize} color={colors.primary} />} />
-                <IconButton onClick={onInsights} Icon={() => <AntDesign iconStyle={iconStyle} style={iconStyle} name="eye" size={iconSize} color={colors.primary} />} />
+                <IconButton disabled={!onInsights} onClick={onInsights} Icon={() => <AntDesign iconStyle={iconStyle} style={iconStyle} name="eye" size={iconSize} color={onInsights ? colors.primary : colors.primary + `77`} />} />
             </Vertical>
         </View>
     )

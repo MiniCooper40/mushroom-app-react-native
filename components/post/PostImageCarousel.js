@@ -1,26 +1,24 @@
 import Carousel from 'react-native-reanimated-carousel';
+import PostImage from './PostImage';
+import { Dimensions } from 'react-native';
 
-export default function PostImageCarousel({ sources }) {
-    <Carousel
-        loop
-        width={width}
-        height={width / 2}
-        autoPlay={true}
-        data={[...new Array(6).keys()]}
-        scrollAnimationDuration={1000}
-        onSnapToItem={(index) => console.log('current index:', index)}
-        renderItem={({ index }) => (
-            <View
-                style={{
-                    flex: 1,
-                    borderWidth: 1,
-                    justifyContent: 'center',
-                }}
-            >
-                <Text style={{ textAlign: 'center', fontSize: 30 }}>
-                    {index}
-                </Text>
-            </View>
-        )}
-    />
+export default function PostImageCarousel({ sources, setIndex }) {
+
+    return (
+        <Carousel
+            loop={false}
+            width={Dimensions.get('window').width}
+            height={500}
+            autoPlay={false}
+            data={sources}
+            scrollAnimationDuration={500}
+            onSnapToItem={(index) => setIndex(index)}
+            renderItem={({ index }) => (
+                <PostImage imageSource={sources[index]} />
+            )}
+            panGestureHandlerProps={{
+                activeOffsetX: [-10, 10],
+            }}
+        />
+    )
 }

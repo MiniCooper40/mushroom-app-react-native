@@ -11,6 +11,8 @@ const mediumFontSize = 12
 const smallFontSize = 10
 const titleFontSize = 22
 
+const mediumGap = 8
+
 function createStyle(colors) {
   return StyleSheet.create({
     container: {
@@ -119,7 +121,7 @@ function createStyle(colors) {
         alignItems: 'center',
         // backgroundColor: 'purple',
       },
-      postImageContainer: {
+      postContentContainer: {
         flex: 0,
         justifyContent: 'center',
         alignItems: 'center',
@@ -133,6 +135,38 @@ function createStyle(colors) {
         bottom: 0,
         left: 0,
         justifyContent: 'flex-end',
+      },
+      postInfoSubtext: {
+        fontSize: 12,
+        color: colors.onPrimary,
+        opacity: 0.5
+      },
+      postHeaderContainer: { 
+        padding: 10, 
+        gap: mediumGap 
+      },
+      postCaption: {
+
+      },
+      postInfoContainer: {
+        gap: mediumGap,
+        flexDirection: 'row'
+      },
+      actionSheet: {
+        paddingBottom: 0,
+        marginBottom: 0,
+        backgroundColor: colors.primary,
+        padding: 10,
+        height: '60%'
+      },
+      suggestionImage: {
+        width: 100,
+        height: 100
+      },
+      exploreImage: {
+        // maxHeight: 300,
+        resizeMode: 'contain',
+        backgroundColor: 'red'
       }
 })
 }

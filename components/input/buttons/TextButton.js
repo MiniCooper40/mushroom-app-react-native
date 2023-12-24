@@ -1,13 +1,13 @@
 import useTheme from "../../../style/useTheme"
-import {Pressable, Text} from 'react-native'
+import { Pressable, Text } from 'react-native'
 
-const TextButton = ({text, buttonStyle, textStyle}) => {
+const TextButton = ({ text, buttonStyle = undefined, textStyle = undefined, onClick = () => { } }) => {
 
-    const {styles} = useTheme()
+    const { styles } = useTheme()
 
     return (
-        <Pressable style={[buttonStyle, styles.textButton]}>
-            <Text style={[textStyle, styles.textButtonText]}>{text}</Text>
+        <Pressable onPress={onClick} style={[buttonStyle, styles.textButton]}>
+            <Text style={[styles.textButtonText, textStyle]}>{text}</Text>
         </Pressable>
     )
 }

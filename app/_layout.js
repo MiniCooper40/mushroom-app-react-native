@@ -1,13 +1,16 @@
-import { Stack, Slot } from 'expo-router'
+import { Slot } from 'expo-router'
 import ThemeProvider from '../style/ThemeProvider'
-import ImageBackground from '../components/containers/ImageBackground'
 import AuthProvider from '../auth/AuthProvider'
+import '../sheets/sheets'
+import { SheetProvider } from 'react-native-actions-sheet'
 
 export default function Layout() {
     return (
         <AuthProvider>
             <ThemeProvider>
-                <Slot />
+                <SheetProvider>
+                    <Slot />
+                </SheetProvider>
             </ThemeProvider>
         </AuthProvider>
     )
