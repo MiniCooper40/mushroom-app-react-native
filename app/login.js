@@ -11,8 +11,8 @@ import RoundedButton from "../components/input/buttons/RoundedButton";
 import TextButton from "../components/input/buttons/TextButton";
 import ImageBackground from "../components/containers/ImageBackground";
 import ThemeProvider from "../style/ThemeProvider";
-import useAuth from "../auth/useAuth";
 import {router} from 'expo-router'
+import { setAuth, useAuth } from "../auth/Auth";
 
 export default function Page() {
   
@@ -20,25 +20,30 @@ export default function Page() {
   const [password, setPassword] = useState('')
 
   const { colors, styles } = useTheme()
-  const { auth, setAuth } = useAuth()
 
   const smallFontSize = 10
 
-  function toggleAuth() {
-    setAuth(true)
-    router.replace("/")
+  const [auth, setAuth] = useAuth()
+
+  function handleLoginAttempt() {
+    //If auth is good
+    setAuth("token")
+    .then(() => {
+      router.replace("/")
+    })
   }
 
   return (
     <ImageBackground source={require('../assets/loginBackground.jpg')}>
       <Center>
         <Container style={{ paddingHorizontal: 35, paddingVertical: 25, backgroundColor: colors.secondary }}>
+        <Button onClick={()=>console.log({auth})} title="test auth" />
           <Vertical style={{ gap: 18 }}>
             <FormLabel text="Login" />
             <TextField value={username} onTextChange={setUsername} placeholder="Username" style={{ color: colors.primary }} placeholderTextColor={colors.onSecondary} />
             <TextField value={password} onTextChange={setPassword} placeholder="Password" style={{ color: colors.primary }} placeholderTextColor={colors.onSecondary} />
             <Vertical style={{ gap: 1, alignItems: 'flex-end' }}>
-              <RoundedButton onClick={toggleAuth} title="Log in" />
+              <RoundedButton onClick={handleLoginAttempt} title="Log in" />
               <TextButton text="Forgot password?" textStyle={{ fontSize: smallFontSize }} />
             </Vertical>
             <View style={{ alignSelf: 'stretch', padding: 0 }}>

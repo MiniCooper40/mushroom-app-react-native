@@ -56,8 +56,8 @@ export default function Page() {
 
     return (
         <PostFeedContainer>
-            <Button onPress={accountRoute} title='View account' />
-            <Button onPress={postRoute} title='View post' />
+            {/* <Button onPress={accountRoute} title='View account' />
+            <Button onPress={postRoute} title='View post' /> */}
             <Post
                 caption='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco'
                 media={media}

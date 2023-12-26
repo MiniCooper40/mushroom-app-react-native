@@ -1,6 +1,5 @@
 
 import Ionicons from '@expo/vector-icons/build/Ionicons'
-import useAuth from '../../auth/useAuth'
 import useTheme from '../../style/useTheme'
 import { Tabs, Redirect } from 'expo-router'
 import MaterialIcons from '@expo/vector-icons/build/MaterialIcons'
@@ -10,14 +9,25 @@ import { Text, View, Image } from 'react-native'
 import IconButton from '../../components/input/buttons/IconButton'
 import logo from '../../assets/logo1.png'
 import HeaderButtons from '../../components/input/buttons/HeaderButtons'
+import { useEffect, useLayoutEffect, useState } from 'react'
+import { useAuth } from '../../auth/Auth'
+import useSession from '../../auth/useSession'
+
+
+function isValidAuth() {
+    return true
+}
 
 
 export default function Layout() {
 
-    const { auth, setAuth } = useAuth()
+    const { auth } = useSession()
     const { colors } = useTheme()
 
-    if (!auth) return <Redirect href="login" />
+    console.log({ auth })
+
+
+    if (auth === undefined) return <Redirect href="login" />
 
     const tabBarItemStyle = {
         tabBarLabelStyle: {
