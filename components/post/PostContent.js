@@ -12,10 +12,11 @@ export default function PostContent({
     onComment = () => { },
     onInsights = undefined,
     sources,
-    setIndex
+    setIndex,
+    interactions = {likes: 0, comments: 0, userLikes: 0}
 }) {
 
-    
+    console.log("in PostContent w/ sources", sources)    
 
     return (
         <PostContentContainer>

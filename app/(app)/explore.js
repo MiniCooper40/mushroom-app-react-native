@@ -26,7 +26,7 @@ export default function Page() {
 
     const posts = []
     for(let i = 0; i < 20; i++) posts.push({
-        image: images[ Math.floor(Math.random() * 3)],
+        source: images[ Math.floor(Math.random() * 3)],
         id: Math.random()
     })
 

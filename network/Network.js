@@ -1,7 +1,7 @@
 import { getAuth } from "firebase/auth"
 import { getStoredAuth } from "../auth/Auth"
 
-export const BASE_URL = "http://192.168.1.84:8080/v1/"
+export const BASE_URL = "http://192.168.1.101:8080/v1/"
 
 const authorizationHeader = {
     "Authorization": getStoredAuth().then(auth => auth) // From auth object
@@ -34,6 +34,7 @@ async function get(route, request = defaultRequest) {
 
     const { headers } = request
 
+    console.log('getting', BASE_URL+route)
 
     const token = await getAuth().currentUser.getIdToken()
 

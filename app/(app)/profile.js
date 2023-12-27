@@ -6,11 +6,11 @@ import PostFeedContainer from "../../components/containers/PostFeedContainer";
 import Explore from "../../components/explore/Explore";
 import useTheme from "../../style/useTheme";
 import AccountHeader from "../../components/account/AccountHeader";
+import { useEffect, useState } from "react";
+import useSession from "../../auth/useSession";
+import { getUserPosts } from "../../network/Post";
 
 export default function Page() {
-
-    const params = useLocalSearchParams()
-    const { account } = params
 
     const image1 = "https://i.natgeofe.com/n/586b922d-7eba-44d8-b74c-f932ff1cfbb5/naturepl_01339486_2x3.jpg"
     const image2 = "https://www.treehugger.com/thmb/5gvna5sA4OhNEdNLvk4GjL9RVc8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/amethyst-deceiver-mushrooms-1329276825-643a3613450e4c9289e60e870e5a0da7.jpg"
@@ -18,26 +18,39 @@ export default function Page() {
 
     const images = [image1, image2, image3]
 
-    const posts = []
-    for(let i = 0; i < 20; i++) posts.push({
-        image: images[ Math.floor(Math.random() * 3)],
-        id: Math.random()
-    })
+    const { token } = useSession()
 
-    const accountDetails = {
-        profilePicture: "https://i.pinimg.com/564x/50/5f/ae/505fae07cccb7098f7e82c82f857b13a.jpg",
-        username: "Username",
-        followers: 123,
-        location: "A place, A country",
-        bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco'"
+    // const posts = []
+    // for(let i = 0; i < 20; i++) posts.push({
+    //     image: images[ Math.floor(Math.random() * 3)],
+    //     id: Math.random()
+    // })
+
+    const [posts, setPosts] = useState([])
+
+    useEffect(() => {
+        if (token) getUserPosts()
+            .then(posts => posts.json())
+            .then(body => {
+                const {posts} = body
+                console.log('got posts', posts)
+                setPosts(posts)
+            })
+            .catch(err => console.log('error getting user posts', err))
+    }, [token])
+
+    function getPosts() {
+        return posts.map(post => {
+            return {
+                source: post.media[0].source,
+                id: post['post_id']
+            }
+        })
     }
 
     return (
-        <Explore
-            posts={posts}
-            Header={() => {
-                return <AccountHeader />
-            }}
-        />
+        <View>
+            <Explore posts={getPosts()} Header={() => <AccountHeader />} />
+        </View>
     )
 }

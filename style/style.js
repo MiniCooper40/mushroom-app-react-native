@@ -167,7 +167,8 @@ function createStyle(colors) {
         // maxHeight: 300,
         resizeMode: 'contain',
         flex: 1,
-        height: 240
+        height: 240,
+        maxHeight: 300
       },
       signInModal: {
         width: width*0.76,

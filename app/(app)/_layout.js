@@ -23,7 +23,7 @@ function isValidAuth() {
 
 export default function Layout() {
 
-    const { auth, setAuth } = useSession()
+    const { auth, setAuth, account } = useSession()
     const { colors } = useTheme()
 
     useEffect(() => {
@@ -40,6 +40,8 @@ export default function Layout() {
         })
     }, [])
 
+    console.log({account})
+    console.log({auth})
 
     if (auth === undefined) return <Redirect href="login" />
 

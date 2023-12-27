@@ -1,6 +1,6 @@
 import { Slot } from 'expo-router'
 import ThemeProvider from '../style/ThemeProvider'
-import AuthProvider from '../auth/AuthProvider'
+import SessionProvider from '../auth/SessionProvider'
 import '../sheets/sheets'
 import { SheetProvider } from 'react-native-actions-sheet'
 import { useAuth } from '../auth/Auth'
@@ -11,13 +11,13 @@ import { getAuth } from 'firebase/auth'
 export default function Layout() {
 
     return (
-        <AuthProvider>
+        <SessionProvider>
             <ThemeProvider>
                 <SheetProvider>
                     <Slot />
                 </SheetProvider>
             </ThemeProvider>
-        </AuthProvider>
+        </SessionProvider>
 
     )
 }

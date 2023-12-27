@@ -9,8 +9,8 @@ const deleteAuth = () => SecureStore.deleteItemAsync('auth')
 
 function useAuth() {
 
-    const [auth, setState] = useState(getAuth().currentUser)
-   
+    const [auth, setState] = useState(getAuth())
+
 
     function setValue(auth) {
         setState(auth)
@@ -25,4 +25,23 @@ function firebaseSignOut() {
 }
 
 
-export { getStoredAuth, setStoredAuth, deleteAuth, useAuth, firebaseSignOut }
+function useToken(auth) {
+
+    const [token, setToken] = useState()
+
+    useEffect(() => {
+
+        getAuth()
+            .onIdTokenChanged(userCredentials => {
+                userCredentials
+                    .getIdToken()
+                    .then(token => setToken(token))
+            })
+
+    }, [auth])
+
+    return { token }
+}
+
+
+export { useToken, getStoredAuth, setStoredAuth, deleteAuth, useAuth, firebaseSignOut }
