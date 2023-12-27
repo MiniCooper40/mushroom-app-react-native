@@ -3,12 +3,16 @@ import PostProfilePicture from "../post/PostsProfilePicture"
 import LabeledText from "../typography/LabeledText"
 import RoundedButton from '../../components/input/buttons/RoundedButton'
 import useTheme from "../../style/useTheme"
+import useSession from "../../auth/useSession"
+import { getAuth } from "firebase/auth"
 
 export default function AccountHeader({ account }) {
 
+    const {auth} = useSession()
+
     const accountDetails = {
         profilePicture: "https://i.pinimg.com/564x/50/5f/ae/505fae07cccb7098f7e82c82f857b13a.jpg",
-        username: "Username",
+        username: auth.email,
         followers: 123,
         location: "A place, A country",
         bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco'"

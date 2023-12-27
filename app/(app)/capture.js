@@ -3,7 +3,7 @@ import RoundedButton from '../../components/input/buttons/RoundedButton'
 import * as ImagePicker from 'expo-image-picker'
 import useTheme from '../../style/useTheme'
 import Button from '../../components/input/buttons/Button'
-import { getAllUsers } from '../../network/User'
+import { currentUser, getAllUsers } from '../../network/User'
 import { useEffect, useState } from 'react'
 
 export default function Page() {
@@ -35,8 +35,9 @@ export default function Page() {
     const [users, setUsers] = useState()
 
     function handleTest() {
-        getAllUsers()
-            .then(users => setUsers(users))
+        currentUser()
+        .then(resp => resp.json())
+        .then(resp => console.log({resp}))
     }
 
 

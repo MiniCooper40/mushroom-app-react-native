@@ -5,6 +5,10 @@ async function getAllUsers() {
     return await get("users").then(result => result.json())
 }
 
+async function currentUser() {
+    return get("users/user")
+}
+
 async function createUser(username, email, password) {
     return createUserWithEmailAndPassword(getAuth(), email, password)
         .then(credentials => {
@@ -33,4 +37,8 @@ async function createUser(username, email, password) {
         })
 }
 
-export { getAllUsers, createUser }
+export { 
+    getAllUsers, 
+    createUser, 
+    currentUser 
+}
