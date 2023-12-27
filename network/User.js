@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { BASE_URL, get, post } from "./Network";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 
@@ -14,11 +15,11 @@ async function createUser(username, email, password) {
         .then(credentials => {
             return credentials.user.getIdToken().then(token => {
                 console.log('idtoken', token)
-                const url = BASE_URL+"users"
-                console.log({url})
+                const url = BASE_URL + "users"
+                console.log({ url })
                 fetch(url, {
                     method: 'POST',
-                    headers: { 
+                    headers: {
                         Authorization: `Bearer ${token}`,
                         'Content-Type': 'application/json'
                     },
@@ -26,9 +27,9 @@ async function createUser(username, email, password) {
                         username: username
                     })
                 })
-                .then(resp => resp.status)
-                .then(resp => console.log({resp}))
-                 .catch(err => console.log(`err on server req ${err}`))
+                    .then(resp => resp.status)
+                    .then(resp => console.log({ resp }))
+                    .catch(err => console.log(`err on server req ${err}`))
 
             }).then(() => credentials)
         })
@@ -37,8 +38,23 @@ async function createUser(username, email, password) {
         })
 }
 
-export { 
-    getAllUsers, 
-    createUser, 
-    currentUser 
+function useOtherAccount(accountId) {
+    const [account, setAccount] = useState()
+
+    useEffect(() => {
+        get(`users/${accountId}`)
+            .then(resp => resp.json())
+            .then(resp => setAccount(resp))
+            .catch(err => console.log('error while retrieving account: ', err))
+
+    }, [accountId])
+
+    return account
+}
+
+export {
+    getAllUsers,
+    createUser,
+    currentUser,
+    useOtherAccount
 }

@@ -5,11 +5,14 @@ import { SheetManager } from 'react-native-actions-sheet'
 import PostFeedContainer from "../../../components/containers/PostFeedContainer";
 import { useEffect, useState } from "react";
 import { getPost } from "../../../network/Post";
+import usePost from "../../../components/post/usePost";
 
 export default function Page() {
 
     const params = useLocalSearchParams()
     const { post: postId } = params
+
+    const post = usePost(postId)
 
     function onComment(id) {
         SheetManager.show('comments-sheet', {
@@ -17,13 +20,7 @@ export default function Page() {
         })
     }
 
-    const [post, setPost] = useState()
 
-    useEffect(() => {
-        getPost(postId)
-            .then(post => post.json())
-            .then(post => setPost(post))
-    }, [])
 
     console.log({ post })
 
@@ -46,7 +43,7 @@ export default function Page() {
                 media={getMedia()}
                 onComment={() => onComment(1)}
                 onLike={() => console.log("liked post")}
-                onViewProfile={() => console.log('viewing profile')}
+                onViewProfile={(() => router.replace(`account/${post['user_id']}`))}
             />
         </PostFeedContainer>
     )

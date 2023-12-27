@@ -1,7 +1,7 @@
 import { get } from "./Network"
 
-function getUserPosts() {
-    return get("posts/user")
+function getUserPosts(userId) {
+    return get(`posts/user/${userId}`)
 }
 
 function getPost(id) {

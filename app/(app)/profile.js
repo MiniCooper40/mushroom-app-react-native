@@ -9,35 +9,13 @@ import AccountHeader from "../../components/account/AccountHeader";
 import { useEffect, useState } from "react";
 import useSession from "../../auth/useSession";
 import { getUserPosts } from "../../network/Post";
+import useProfileFeed from "../../components/account/useProfileFeed";
 
 export default function Page() {
 
-    const image1 = "https://i.natgeofe.com/n/586b922d-7eba-44d8-b74c-f932ff1cfbb5/naturepl_01339486_2x3.jpg"
-    const image2 = "https://www.treehugger.com/thmb/5gvna5sA4OhNEdNLvk4GjL9RVc8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/amethyst-deceiver-mushrooms-1329276825-643a3613450e4c9289e60e870e5a0da7.jpg"
-    const image3 = "https://mdpiblog.wordpress.sciforum.net/wp-content/uploads/sites/4/2023/02/death-cap-MDPI-Blog.jpg"
-
-    const images = [image1, image2, image3]
-
-    const { token } = useSession()
-
-    // const posts = []
-    // for(let i = 0; i < 20; i++) posts.push({
-    //     image: images[ Math.floor(Math.random() * 3)],
-    //     id: Math.random()
-    // })
-
-    const [posts, setPosts] = useState([])
-
-    useEffect(() => {
-        if (token) getUserPosts()
-            .then(posts => posts.json())
-            .then(body => {
-                const {posts} = body
-                console.log('got posts', posts)
-                setPosts(posts)
-            })
-            .catch(err => console.log('error getting user posts', err))
-    }, [token])
+    const {account} = useSession()
+    const { id } = account
+    const {posts} = useProfileFeed(id)
 
     function getPosts() {
         return posts.map(post => {
@@ -50,7 +28,7 @@ export default function Page() {
 
     return (
         <View>
-            <Explore posts={getPosts()} Header={() => <AccountHeader />} />
+            <Explore posts={getPosts()} Header={() => <AccountHeader account={account} action="Edit profile" />} />
         </View>
     )
 }
