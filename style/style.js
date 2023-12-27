@@ -168,6 +168,12 @@ function createStyle(colors) {
         resizeMode: 'contain',
         flex: 1,
         height: 240
+      },
+      signInModal: {
+        width: width*0.76,
+        maxWidth: 600,
+        maxHeight: 500,
+        backgroundColor: colors.secondary
       }
 })
 }

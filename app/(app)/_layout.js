@@ -1,7 +1,7 @@
 
 import Ionicons from '@expo/vector-icons/build/Ionicons'
 import useTheme from '../../style/useTheme'
-import { Tabs, Redirect } from 'expo-router'
+import { Tabs, Redirect, router } from 'expo-router'
 import MaterialIcons from '@expo/vector-icons/build/MaterialIcons'
 import AntDesign from '@expo/vector-icons/build/AntDesign'
 import Feather from '@expo/vector-icons/build/Feather'
@@ -12,7 +12,9 @@ import HeaderButtons from '../../components/input/buttons/HeaderButtons'
 import { useEffect, useLayoutEffect, useState } from 'react'
 import { useAuth } from '../../auth/Auth'
 import useSession from '../../auth/useSession'
-
+import {firebase} from 'firebase/app'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import {auth as firebaseAuth} from '../../firebaseConfig'
 
 function isValidAuth() {
     return true
@@ -21,10 +23,22 @@ function isValidAuth() {
 
 export default function Layout() {
 
-    const { auth } = useSession()
+    const { auth, setAuth } = useSession()
     const { colors } = useTheme()
 
-    console.log({ auth })
+    useEffect(() => {
+        return getAuth().onAuthStateChanged(credentials => {
+            console.log({credentials})
+            if(credentials) {
+                setAuth(credentials)
+                router.replace("/")
+            }
+            else {
+                setAuth(undefined)
+                console.log('user not logged in')
+            }
+        })
+    }, [])
 
 
     if (auth === undefined) return <Redirect href="login" />

@@ -6,8 +6,13 @@ import Post from '../../components/post/Post'
 import PostFeedContainer from '../../components/containers/PostFeedContainer'
 import { SheetManager } from 'react-native-actions-sheet'
 import { router, useLocalSearchParams, Link } from 'expo-router';
+import { getAuth, signOut } from 'firebase/auth'
+import { firebaseSignOut } from '../../auth/Auth'
+import useSession from '../../auth/useSession'
 
 export default function Page() {
+
+    const {auth, setAuth} = useSession()
 
     function onComment(id) {
         SheetManager.show('comments-sheet', {
@@ -54,8 +59,14 @@ export default function Page() {
         router.push("post/1")
     }
 
+    function signOut() {
+        firebaseSignOut()
+        setAuth(undefined)
+    }
+
     return (
         <PostFeedContainer>
+            <Button onPress={signOut} title='Sign out' />
             {/* <Button onPress={accountRoute} title='View account' />
             <Button onPress={postRoute} title='View post' /> */}
             <Post

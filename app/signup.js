@@ -12,15 +12,17 @@ import TextButton from "../components/input/buttons/TextButton";
 import ImageBackground from "../components/containers/ImageBackground";
 import ThemeProvider from "../style/ThemeProvider";
 import { router } from 'expo-router'
-import { firebaseSignOut, setAuth, useAuth } from "../auth/Auth";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { setAuth, useAuth } from "../auth/Auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import useSession from "../auth/useSession";
 import SignUpModal from "../components/signup/SignUpModal";
+import { createUser } from "../network/User";
 
 export default function Page() {
 
   const [signingUp, setSigningUp] = useState(true)
 
+  const [email, setEmail] = useState()
   const [username, setUsername] = useState()
   const [password, setPassword] = useState()
 
@@ -30,43 +32,27 @@ export default function Page() {
 
   const { auth, setAuth } = useSession()
 
-  function handleLoginAttempt() {
-    console.log({username, password})
-    signInWithEmailAndPassword(getAuth(), username, password)
-      .then(credentials => {
-          console.log('got credentials', credentials)
-          setAuth(credentials)
-          router.replace("/")
-      })
-      .catch(err => {
-        console.log('error while signing in:', err)
-      })
+  function handleSignUpAttempt() {
+    createUser(username, email, password)
+        .then(credentials => {
+            console.log('signed up and got credentials: ', credentials)
+            setAuth(credentials)
+            router.replace("/")
+        })
     
-  }
-
-  function test() {
-    console.log({ auth: getAuth()})
-    // firebaseSignOut()
   }
 
   return (
     <ImageBackground source={require('../assets/loginBackground.jpg')}>
       <Center>
         <Container style={{ paddingHorizontal: 35, paddingVertical: 25, backgroundColor: colors.secondary }}>
-          <Button onClick={test} title="test auth" />
+          <Button onClick={() => console.log({ auth })} title="test auth" />
           <Vertical style={{ gap: 18 }}>
-            <FormLabel text="Login" />
+            <FormLabel text="Sign up" />
+            <TextField value={email} onTextChange={setEmail} placeholder="Email" style={{ color: colors.primary }} placeholderTextColor={colors.onSecondary} />
             <TextField value={username} onTextChange={setUsername} placeholder="Username" style={{ color: colors.primary }} placeholderTextColor={colors.onSecondary} />
             <TextField value={password} onTextChange={setPassword} placeholder="Password" style={{ color: colors.primary }} placeholderTextColor={colors.onSecondary} />
-            <Vertical style={{ gap: 1, alignItems: 'flex-end' }}>
-              <RoundedButton onClick={() => handleLoginAttempt(username, password)} title="Log in" />
-              <TextButton text="Forgot password?" textStyle={{ fontSize: smallFontSize }} />
-            </Vertical>
-            <View style={{ alignSelf: 'stretch', padding: 0 }}>
-              <Text style={{ color: colors.onSecondary, textAlign: 'center', fontSize: smallFontSize }}>or</Text>
-            </View>
-            <RoundedButton title="Continue with Google" />
-            <TextButton text="Need an account? Sign up" textStyle={{ fontSize: smallFontSize }} onClick={() => router.replace('signup')} />
+            <RoundedButton onClick={handleSignUpAttempt} title="Sign up" />
           </Vertical>
         </Container>
       </Center>
