@@ -16,7 +16,7 @@ export default function PostContent({
     interactions = {likes: 0, comments: 0, userLikes: 0}
 }) {
 
-    console.log("in PostContent w/ sources", sources)    
+    // console.log("in PostContent w/ sources", sources)    
 
     return (
         <PostContentContainer>

@@ -10,7 +10,7 @@ const blurhash =
     '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
 
 
-export default function PostImage({ imageSource }) {
+export default function PostImage({ imageSource, setHeight=() => {} }) {
 
     const { styles } = useTheme()
     const [dimensions, setDimensions] = useState()
@@ -37,6 +37,8 @@ export default function PostImage({ imageSource }) {
 
                     let adjustedWidth = screenWidth
                     let adjustedHeight = aspectRatio * screenWidth
+
+                    setHeight(adjustedHeight)
 
                     setDimensions({ width: adjustedWidth, height: adjustedHeight })
                 }}

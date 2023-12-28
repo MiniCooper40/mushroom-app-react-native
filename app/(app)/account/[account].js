@@ -8,6 +8,7 @@ import useTheme from "../../../style/useTheme";
 import AccountHeader from "../../../components/account/AccountHeader";
 import useProfileFeed from "../../../components/account/useProfileFeed";
 import { useOtherAccount } from "../../../network/User";
+import Loading from "../../../components/loading/Loading";
 
 export default function Page() {
 
@@ -29,7 +30,7 @@ export default function Page() {
 
     console.log('in account, posts are',  posts)
 
-    return (
+    if(posts) return (
         <Explore
             posts={getPosts()}
             Header={() => {
@@ -37,4 +38,5 @@ export default function Page() {
             }}
         />
     )
+    else return <Loading />
 }

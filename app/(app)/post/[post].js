@@ -6,6 +6,7 @@ import PostFeedContainer from "../../../components/containers/PostFeedContainer"
 import { useEffect, useState } from "react";
 import { getPost } from "../../../network/Post";
 import usePost from "../../../components/post/usePost";
+import Loading from "../../../components/loading/Loading";
 
 export default function Page() {
 
@@ -44,7 +45,9 @@ export default function Page() {
                 onComment={() => onComment(1)}
                 onLike={() => console.log("liked post")}
                 onViewProfile={(() => router.replace(`account/${post['user_id']}`))}
+                profilePicture={"http://192.168.1.101:8080/"+post['profile_picture']}
             />
         </PostFeedContainer>
     )
+    else return <Loading />
 }

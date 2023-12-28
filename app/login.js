@@ -34,7 +34,7 @@ export default function Page() {
     console.log({username, password})
     signInWithEmailAndPassword(getAuth(), username, password)
       .then(credentials => {
-          console.log('got credentials', credentials)
+          // console.log('got credentials', credentials)
           setAuth(credentials)
           router.replace("/")
       })

@@ -37,6 +37,7 @@ const blurhash =
 
 export default function Post({
     media,
+    profilePicture = "https://i.pinimg.com/564x/50/5f/ae/505fae07cccb7098f7e82c82f857b13a.jpg",
     caption = "This is a caption",
     time = "an hour",
     location = "a place",
@@ -66,7 +67,7 @@ export default function Post({
     return (
         <PostContainer>
             <PostHeader
-                profilePicture="https://i.pinimg.com/564x/50/5f/ae/505fae07cccb7098f7e82c82f857b13a.jpg"
+                profilePicture={profilePicture}
                 caption={caption}
                 username={username}
                 time={time}

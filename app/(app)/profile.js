@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import useSession from "../../auth/useSession";
 import { getUserPosts } from "../../network/Post";
 import useProfileFeed from "../../components/account/useProfileFeed";
+import Loading from "../../components/loading/Loading";
 
 export default function Page() {
 
@@ -26,9 +27,11 @@ export default function Page() {
         })
     }
 
-    return (
+    if(posts) return (
         <View>
             <Explore posts={getPosts()} Header={() => <AccountHeader account={account} action="Edit profile" />} />
         </View>
     )
+
+    else return <Loading />
 }

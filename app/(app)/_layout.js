@@ -28,7 +28,7 @@ export default function Layout() {
 
     useEffect(() => {
         return getAuth().onAuthStateChanged(credentials => {
-            console.log({credentials})
+            // console.log({credentials})
             if(credentials) {
                 setAuth(credentials)
                 router.replace("/")
@@ -40,8 +40,8 @@ export default function Layout() {
         })
     }, [])
 
-    console.log({account})
-    console.log({auth})
+    // console.log({account})
+    // console.log({auth})
 
     if (auth === undefined) return <Redirect href="login" />
 
