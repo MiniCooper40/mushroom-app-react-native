@@ -19,7 +19,7 @@ const url = 'http://192.168.1.101:8080/'
 function postsToColumn(posts) {
     return posts.map(({source, id}) => {
         const loc = url+source
-        console.log('retrieving image from ', loc)
+        // console.log('retrieving image from ', loc)
         return <ExploreImage onClick={() => router.replace(`/post/${id}`)} key={id} image={loc} />
     }) 
 }
@@ -36,7 +36,7 @@ const exploreImage = {
 
 export default function Explore({ posts, Header=() => {} }) {
 
-    console.log('posts', posts)
+    // console.log('posts', posts)
 
     const leftPosts = posts.slice(0, Math.ceil(posts.length/2))
     const rightPosts = posts.slice(Math.ceil(posts.length/2), posts.length)

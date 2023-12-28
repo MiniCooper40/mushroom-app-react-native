@@ -27,7 +27,7 @@ export default function Page() {
         setAuth(undefined)
     }
 
-    console.log('posts in home', posts)
+    // console.log('posts in home', posts)
 
     if(posts) return (
         <PostFeed posts={posts} />

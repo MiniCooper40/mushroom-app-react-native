@@ -5,10 +5,10 @@ export default function PostFeed({posts}) {
     const url = 'http://192.168.1.101:8080/'
     function generatePosts() {
 
-        console.log('posts in generatePosts', posts)
+        // console.log('posts in generatePosts', posts)
 
         return posts.map(post => {
-            console.log('media for post', post.media)
+            // console.log('media for post', post.media)
             let media = post.media.map(media => {
                 return {
                     ...media,

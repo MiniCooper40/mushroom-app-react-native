@@ -19,7 +19,7 @@ export default function Page() {
     const account = useOtherAccount(userId)
     
     function getPosts() {
-        console.log({posts})
+        // console.log({posts})
         return posts.map(post => {
             return {
                 source: post.media[0].source,
@@ -28,7 +28,7 @@ export default function Page() {
         })
     }
 
-    console.log('in account, posts are',  posts)
+    // console.log('in account, posts are',  posts)
 
     if(posts) return (
         <Explore

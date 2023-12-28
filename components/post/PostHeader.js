@@ -27,10 +27,7 @@ export default function PostHeader({
                 location={location}
                 time={time}
                 onViewLocation={onViewLocation}
-                onViewProfile={() => {
-                    console.log("clicked onViewProfile")
-                    onViewProfile()
-                }}
+                onViewProfile={onViewProfile}
                 profilePicture={profilePicture}
             />
             <PostCaption caption={caption} />

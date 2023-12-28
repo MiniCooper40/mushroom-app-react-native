@@ -18,6 +18,7 @@ export default function PostImage({ imageSource, setHeight=() => {} }) {
     let style = dimensions ? { width: dimensions.width, height: dimensions.height } : undefined
 
     // console.log('style is', style)
+    // console.log('post image w/', imageSource)
 
     return (
         <PostImageContainer>
@@ -38,9 +39,9 @@ export default function PostImage({ imageSource, setHeight=() => {} }) {
                     let adjustedWidth = screenWidth
                     let adjustedHeight = aspectRatio * screenWidth
 
-                    setHeight(adjustedHeight)
+                    // setHeight(adjustedHeight)
 
-                    setDimensions({ width: adjustedWidth, height: adjustedHeight })
+                    setDimensions({ width: adjustedWidth, height: adjustedHeight-2 })
                 }}
             />
         </PostImageContainer>

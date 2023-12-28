@@ -8,12 +8,12 @@ export default function useProfileFeed(userId) {
     const {token} = useSession()
 
     useEffect(() => {
-        console.log('userId is ', userId)
+        // console.log('userId is ', userId)
         if (token) getUserPosts(userId)
             .then(posts => posts.json())
             .then(body => {
                 const {posts} = body
-                console.log('got posts', posts)
+                // console.log('got posts', posts)
                 setPosts(posts)
             })
             .catch(err => console.log('error getting user posts', err))

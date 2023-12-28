@@ -14,7 +14,7 @@ async function createUser(username, email, password) {
     return createUserWithEmailAndPassword(getAuth(), email, password)
         .then(credentials => {
             return credentials.user.getIdToken().then(token => {
-                console.log('idtoken', token)
+                // console.log('idtoken', token)
                 const url = BASE_URL + "users"
                 console.log({ url })
                 fetch(url, {

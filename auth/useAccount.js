@@ -7,7 +7,7 @@ export default function useAccount(auth) {
 
     useEffect(() => {
 
-        console.log('in setAccount useeffect auth is', auth)
+        // console.log('in setAccount useeffect auth is', auth)
         if (auth) currentUser()
             .then(user => user.json())
             .then(user => setAccount(user))

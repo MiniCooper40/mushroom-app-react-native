@@ -23,7 +23,7 @@ export default function Page() {
 
 
 
-    console.log({ post })
+    // console.log({ post })
 
     function getMedia() {
         return post.media.map(item => {

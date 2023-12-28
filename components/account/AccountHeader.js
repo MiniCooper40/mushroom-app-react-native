@@ -18,7 +18,7 @@ export default function AccountHeader({account={}, action="Follow", onAction=() 
         bio: account.bio
     }
 
-    console.log("in account header, account is", account)
+    // console.log("in account header, account is", account)
 
     const { colors } = useTheme()
 

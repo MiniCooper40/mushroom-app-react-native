@@ -17,7 +17,7 @@ async function post(route, request = defaultRequest) {
     const { headers, body } = request
 
     const token = await getAuth().currentUser.getIdToken()
-    console.log('token is', token)
+    // console.log('token is', token)
 
     return fetch({
         url: BASE_URL + route,
@@ -38,7 +38,7 @@ async function get(route, request = defaultRequest) {
 
     const token = await getAuth().currentUser.getIdToken()
 
-    console.log('token is', token)
+    // console.log('token is', token)
 
     return fetch(BASE_URL + route, {
         headers: {

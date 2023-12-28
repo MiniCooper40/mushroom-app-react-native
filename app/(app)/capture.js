@@ -41,7 +41,7 @@ export default function Page() {
     }
 
 
-    console.log({users})
+    // console.log({users})
     // function apiTest() {
     //     fetch('http://192.168.1.84:8080/v1/users')
     //     .then(resp => resp.json())
