@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth, useToken } from "./Auth";
 import SessionContext from "./AuthContext";
-import useAccount from "./useAccount";
+import {useAccount} from "../network/User";
 
 export default function SessionProvider({children}) {
 

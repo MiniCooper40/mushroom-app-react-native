@@ -2,27 +2,19 @@ import { Image } from "expo-image";
 import useTheme from "../../style/useTheme";
 import { Dimensions, Pressable, Touchable } from "react-native";
 import { useState } from "react";
-
-const blurhash =
-    '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
-
-
+import {BLUR_HASH} from "../../style/style";
 export default function ExploreImage({ image, onClick = () => { } }) {
 
 
     const { colors, styles } = useTheme()
     const [dimensions, setDimensions] = useState()
-    let style = dimensions ? { height: dimensions.height } : undefined
-    // let style = dimensions ? { aspectRatio: dimensions.height/dimensions.width } : undefined
-
-    // console.log('image style', style)
 
     return (
         <Pressable onPress={onClick}>
             <Image
-                style={[styles.exploreImage]}
+                style={styles.exploreImage}
                 source={image}
-                placeholder={blurhash}
+                placeholder={BLUR_HASH}
                 contentFit='cover'
                 transition={1000}
                 contentPosition='center'

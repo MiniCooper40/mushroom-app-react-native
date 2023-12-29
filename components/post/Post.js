@@ -13,10 +13,7 @@ import PostContent from "./PostContent";
 import CommentModal from "../../sheets/CommentsSheet";
 import Button from "../input/buttons/Button";
 import { SheetManager } from 'react-native-actions-sheet'
-
-const blurhash =
-    '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
-
+import {likePost, useInteractions} from "../../network/Post";
 
 /*
 {
@@ -51,6 +48,7 @@ export default function Post({
 }) {
 
     const [index, setIndex] = useState(0)
+    const {currentInteractions, handleLikeAction, incrementComments, decrementComments} = useInteractions(id, interactions)
 
     function viewInsight(insights) {
         SheetManager.show('insights-sheet', {
@@ -58,11 +56,10 @@ export default function Post({
         })
     }
 
-    // console.log(`media at index ${index} is`, media[index])
+    // console.log({currentInteractions})
+
 
     const currentMediaInsights = media[index].insights
-
-    // console.log({currentMediaInsights})
 
     return (
         <PostContainer>
@@ -77,11 +74,12 @@ export default function Post({
             />
             <PostContent
                 sources={media.map(m => m.source)}
-                onLike={onLike}
+                onLike={handleLikeAction}
                 onComment={onComment}
                 onInsights={currentMediaInsights !== undefined ? () => viewInsight(currentMediaInsights) : undefined}
                 index={index}
                 setIndex={setIndex}
+                interactions={currentInteractions}
             />
         </PostContainer>
     )

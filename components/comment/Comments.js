@@ -1,6 +1,7 @@
 import useTheme from "../../style/useTheme"
 import Comment from "./Comment"
 import ActionSheet, { FlatList, SheetManager } from 'react-native-actions-sheet'
+import {RESOURCE_URL} from "../../network/Network";
 
 export default function Comments({ 
     comments, 
@@ -13,17 +14,18 @@ export default function Comments({
 
     return (
         <FlatList
-            style={{ borderTopColor: colors.onPrimary + '77', borderTopWidth: 1, borderBottomColor: colors.onPrimary + '77', borderBottomWidth: 1, paddingTop: 10, paddingLeft: (commentRepliedTo ? 10 : 0) }}
+            style={[styles.commentSection, {paddingLeft: (commentRepliedTo ? 10 : 0) }]}
             nestedScrollEnabled
             data={comments}
             renderItem={({ item }) => {
                 return <Comment
                     username={item.username}
-                    profilePicture={item.profilePicture}
+                    profilePicture={RESOURCE_URL+item['profile_picture']}
                     time={item.time}
-                    comment={item.comment}
+                    comment={item.content}
                     numberOfResponses={item.numberOfResponses}
                     onViewResponses={() => onViewResponsesTo(item)}
+                    key={item.commentId}
                 />
             }}
             keyExtractor={item => item.commentId}

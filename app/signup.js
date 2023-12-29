@@ -2,21 +2,15 @@ import { useState } from "react";
 import Container from "../components/containers/Container";
 import Center from "../components/align/Center";
 import TextField from "../components/input/text/TextField";
-import { Text, View } from 'react-native'
 import Button from "../components/input/buttons/Button";
 import useTheme from "../style/useTheme";
 import Vertical from "../components/containers/Vertical";
 import FormLabel from "../components/typography/FormLabel";
 import RoundedButton from "../components/input/buttons/RoundedButton";
-import TextButton from "../components/input/buttons/TextButton";
 import ImageBackground from "../components/containers/ImageBackground";
-import ThemeProvider from "../style/ThemeProvider";
 import { router } from 'expo-router'
-import { setAuth, useAuth } from "../auth/Auth";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
-import useSession from "../auth/useSession";
-import SignUpModal from "../components/signup/SignUpModal";
 import { createUser } from "../network/User";
+import {useSession} from "../auth/Auth";
 
 export default function Page() {
 
@@ -27,8 +21,6 @@ export default function Page() {
   const [password, setPassword] = useState()
 
   const { colors, styles } = useTheme()
-
-  const smallFontSize = 10
 
   const { auth, setAuth } = useSession()
 

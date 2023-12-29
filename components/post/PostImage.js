@@ -5,10 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Image } from "expo-image";
 import { Dimensions } from "react-native";
 import PostImageContainer from "../containers/PostImageContainer";
-
-const blurhash =
-    '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
-
+import {BLUR_HASH} from "../../style/style";
 
 export default function PostImage({ imageSource, setHeight=() => {} }) {
 
@@ -17,15 +14,12 @@ export default function PostImage({ imageSource, setHeight=() => {} }) {
 
     let style = dimensions ? { width: dimensions.width, height: dimensions.height } : undefined
 
-    // console.log('style is', style)
-    // console.log('post image w/', imageSource)
-
     return (
         <PostImageContainer>
             <Image
                 style={[styles.postImage, style]}
                 source={imageSource}
-                placeholder={blurhash}
+                placeholder={BLUR_HASH}
                 contentFit="cover"
                 transition={1000}
                 onLoad={({ source }) => {

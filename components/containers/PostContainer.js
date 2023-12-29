@@ -8,7 +8,7 @@ export default function PostContainer({ children = undefined, style = undefined 
 
     return (
         <View style={styles.postContainer}>
-            <Vertical style={{ gap: 8 }}>
+            <Vertical style={styles.mediumGap}>
                 {children}
             </Vertical>
         </View>

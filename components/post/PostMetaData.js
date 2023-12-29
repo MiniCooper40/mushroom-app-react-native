@@ -14,9 +14,8 @@ export default function PostMetaData({
     return (
         <View>
             <Text style={{ fontWeight: 'bold' }}>{username}</Text>
-            <View style={{ flexDirection: 'row', gap: 3 }}>
-                <Text style={styles.postInfoSubtext}>{`${time} ago,`}</Text>
-                <TextButton onClick={onViewLocation} text={location} textStyle={[styles.postInfoSubtext, { textDecorationLine: 'underline', }]} />
+            <View style={[styles.horizontalFlex, styles.smallGap]}>
+                <Text style={styles.postInfoSubtext}>{`${time} ago`}</Text>
             </View>
         </View>
     )

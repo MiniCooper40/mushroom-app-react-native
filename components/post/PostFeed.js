@@ -1,32 +1,45 @@
 import PostFeedContainer from "../containers/PostFeedContainer";
 import Post from "./Post";
+import {RESOURCE_URL} from "../../network/Network";
+import {SheetManager} from "react-native-actions-sheet";
+import {getTimeAgo} from "../../style/DateFormat";
 
 export default function PostFeed({posts}) {
-    const url = 'http://192.168.1.101:8080/'
+
+    // function onComment(id) {
+    //     SheetManager.show('comments-sheet', {
+    //         payload: { postId: id, sheetId: 'comments-sheet' }
+    //     })
+    // }
     function generatePosts() {
 
-        // console.log('posts in generatePosts', posts)
+        //console.log('posts in generatePosts', posts)
 
         return posts.map(post => {
-            // console.log('media for post', post.media)
             let media = post.media.map(media => {
                 return {
                     ...media,
-                    source: url+media.source
+                    source: RESOURCE_URL+media.source
                 }
             })
             return <Post 
                 key={post['post_id']}
                 username={post.username}
-                time={post.timestamp}
+                time={getTimeAgo(post.timestamp)}
                 media={media}
                 interactions={{
                     comments: post.comments,
                     likes: post.likes,
-                    userLikes: false
+                    userLikes: post['user_likes']
                 }}
                 caption={post.caption}
-                profilePicture={url+post['profile_picture']}
+                profilePicture={RESOURCE_URL+post['profile_picture']}
+                id={post["post_id"]}
+                onComment={() => {
+                    SheetManager.show('comments-sheet', {
+                        payload: { postId: post['post_id'], sheetId: 'comments-sheet' }
+                    })
+                }}
             />
         })
     }

@@ -2,6 +2,11 @@ import { StyleSheet } from "react-native"
 import { Dimensions } from "react-native"
 
 
+export const BLUR_HASH =
+    '|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[';
+
+
+
 var window = Dimensions.get('window')
 
 var width = window.width
@@ -164,7 +169,6 @@ function createStyle(colors) {
         height: 100
       },
       exploreImage: {
-        // maxHeight: 300,
         resizeMode: 'contain',
         flex: 1,
         height: 240,
@@ -175,6 +179,40 @@ function createStyle(colors) {
         maxWidth: 600,
         maxHeight: 500,
         backgroundColor: colors.secondary
+      },
+      commentInteractionText : {
+        color: colors.onPrimary,
+        opacity: 0.5,
+        textDecorationLine: 'underline',
+        textAlign: 'left',
+        fontSize: 12
+      },
+      commentTextStyle: {
+        color: colors.onPrimary,
+        fontSize: 16
+      },
+      commentSection: {
+        borderTopColor: colors.onPrimary + '77',
+        borderTopWidth: 1,
+        borderBottomColor: colors.onPrimary + '77',
+        borderBottomWidth: 1,
+        paddingTop: 10
+      },
+      mediumGap: {
+        gap: mediumGap
+      },
+      horizontalFlex: {
+        flexDirection: 'row'
+      },
+      smallGap: {
+        gap: 4
+      },
+      postInteractionIconStyle: {
+        shadowColor: 'black',
+        shadowOpacity: 0.26,
+        shadowOffset: { width: 0, height: 2},
+        shadowRadius: 10,
+        elevation: 3
       }
 })
 }

@@ -1,11 +1,10 @@
 import { getAuth } from "firebase/auth"
-import { getStoredAuth } from "../auth/Auth"
 
-export const BASE_URL = "http://192.168.1.101:8080/v1/"
+const API_BASE_URL = "http://192.168.1.101:8080/"
+const API_VERSION = 'v1'
+export const API_URL = `${API_BASE_URL}${API_VERSION}/`
+export const RESOURCE_URL = "http://192.168.1.101:8080/"
 
-const authorizationHeader = {
-    "Authorization": getStoredAuth().then(auth => auth) // From auth object
-}
 
 const defaultRequest = {
     headers: {},
@@ -16,16 +15,20 @@ async function post(route, request = defaultRequest) {
 
     const { headers, body } = request
 
-    const token = await getAuth().currentUser.getIdToken()
-    // console.log('token is', token)
+    //console.log('body is', body)
 
-    return fetch({
-        url: BASE_URL + route,
+    console.log('posting to', API_URL+route)
+
+    const token = await getAuth().currentUser.getIdToken()
+    //console.log('body is', body)
+
+    return fetch(API_URL + route, {
         headers: {
             ...headers,
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
         },
-        body: body,
+        body: JSON.stringify(body),
         method: 'POST'
     })
 }
@@ -34,13 +37,13 @@ async function get(route, request = defaultRequest) {
 
     const { headers } = request
 
-    console.log('getting', BASE_URL+route)
+    console.log('getting from', API_URL+route)
 
     const token = await getAuth().currentUser.getIdToken()
 
-    // console.log('token is', token)
+    //console.log('getting w/ token', token)
 
-    return fetch(BASE_URL + route, {
+    return fetch(API_URL + route, {
         headers: {
             ...headers,
             Authorization: `Bearer ${token}`
@@ -48,4 +51,24 @@ async function get(route, request = defaultRequest) {
     })
 }
 
-export { get, post }
+async function del(route, request = defaultRequest) {
+
+    const { headers, body } = request
+
+    console.log('deleting at', API_URL+route)
+
+    const token = await getAuth().currentUser.getIdToken()
+
+    return fetch(API_URL + route, {
+        headers: {
+            ...headers,
+            Authorization: `Bearer ${token}`
+        },
+        body: body,
+        method: 'DELETE'
+    })
+}
+
+
+
+export { get, post, del }

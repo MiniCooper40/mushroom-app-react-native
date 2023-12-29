@@ -9,6 +9,7 @@ import TextField from '../components/input/text/TextField'
 import Comments from '../components/comment/Comments'
 import SheetHeader from './SheetHeader'
 import IconTextField from '../components/input/text/IconTextField'
+import {useComments} from "../network/Post";
 
 export default function CommentsSheet(props) {
 
@@ -18,18 +19,7 @@ export default function CommentsSheet(props) {
     const { postId, sheetId, commentRepliedTo } = payload
 
     const [comment, setComment] = useState()
-
-
-    function createDummyComment() {
-        return {
-            username: 'Username',
-            profilePicture: "https://i.pinimg.com/564x/50/5f/ae/505fae07cccb7098f7e82c82f857b13a.jpg",
-            time: '1 hour',
-            comment: 'This is a comment. Very cool!',
-            commentId: Math.random(),
-            numberOfResponses: 1
-        }
-    }
+    const {comments, createComment, deleteComment} = useComments(postId)
 
     function handleExit() {
         if(commentRepliedTo) {
@@ -46,10 +36,19 @@ export default function CommentsSheet(props) {
         })
     }
 
+   // console.log({comments})
 
-
-    const comments = []
-    for (let i = 0; i < 20; i++) comments.push(createDummyComment())
+    function getComments() {
+        return comments.map(comment => {
+            return {
+                ...comment,
+                profilePicture: comment['profile_picture'],
+                time: comment['timestamp'],
+                commentId: comment['comment_id'],
+                numberOfResponses: comment['number_of_responses']
+            }
+        })
+    }
 
     return (
         <ActionSheet containerStyle={styles.actionSheet} id={sheetId}>
@@ -72,7 +71,7 @@ export default function CommentsSheet(props) {
             }
             <Comments
                 onViewResponsesTo={onViewResponsesTo}
-                comments={comments} 
+                comments={getComments()}
                 commentRepliedTo={commentRepliedTo}
             />
             <IconTextField
@@ -80,6 +79,7 @@ export default function CommentsSheet(props) {
                 onTextChange={setComment}
                 placeholder='Comment...'
                 Icon={() => <Feather name="send" size={24} color={colors.onPrimary} />}
+                onIconClicked={() => createComment(comment)}
             />
         </ActionSheet>
     )

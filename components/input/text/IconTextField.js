@@ -16,9 +16,9 @@ export default function IconTextField({
     const {colors, styles} = useTheme()
 
     return (
-        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingRight: 10 }}>
+        <View style={[styles.horizontalFlex, { alignItems: 'center', justifyContent: 'space-between', paddingRight: 10 }]}>
             <TextField placeholder={placeholder} text={text} onTextChange={onTextChange} style={{ backgroundColor: colors.primary, fontSize: 15 }} />
-            <IconButton Icon={Icon} />
+            <IconButton Icon={Icon} onClick={onIconClicked} />
         </View>
     )
 }

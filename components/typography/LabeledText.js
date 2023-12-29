@@ -11,7 +11,7 @@ export default function LabeledText({ label, text, textStyle={}, containerStyle=
     }
 
     return (
-        <View style={[{ flexDirection: 'row', gap: 8 }, containerStyle]}>
+        <View style={[styles.horizontalFlex, styles.mediumGap, containerStyle]}>
             <Text style={[fontStyle, { fontWeight: 'bold' }]}>{label}</Text>
             <Text style={[fontStyle, {flexWrap: 'wrap', flex: 1}]}>{text}</Text>
         </View>

@@ -10,11 +10,10 @@ import IconButton from '../../components/input/buttons/IconButton'
 import logo from '../../assets/logo1.png'
 import HeaderButtons from '../../components/input/buttons/HeaderButtons'
 import { useEffect, useLayoutEffect, useState } from 'react'
-import { useAuth } from '../../auth/Auth'
-import useSession from '../../auth/useSession'
 import {firebase} from 'firebase/app'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import {auth as firebaseAuth} from '../../firebaseConfig'
+import {useSession} from "../../auth/Auth";
 
 function isValidAuth() {
     return true
@@ -39,9 +38,6 @@ export default function Layout() {
             }
         })
     }, [])
-
-    // console.log({account})
-    // console.log({auth})
 
     if (auth === undefined) return <Redirect href="login" />
 

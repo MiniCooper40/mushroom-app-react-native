@@ -4,10 +4,10 @@ import useTheme from "../../style/useTheme";
 
 export default function Loading() {
 
-    const {colors} = useTheme()
+    const {colors, styles} = useTheme()
 
     return (
-        <View style={{justifyContent: 'center', alignItems: 'center', flex: 1, backgroundColor: colors.primary}}>
+        <View style={[styles.center, {backgroundColor: colors.primary}]}>
             {/* <Image source={logo} style={{ width: 200, resizeMode: 'contain'}} /> */}
             <ActivityIndicator size="large" color={colors.onPrimary} />
         </View>

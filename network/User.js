@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import { BASE_URL, get, post } from "./Network";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {useEffect, useState} from "react";
+import {API_URL, get, RESOURCE_URL} from "./Network";
+import {createUserWithEmailAndPassword, getAuth} from "firebase/auth";
+import {useSession} from "../auth/Auth";
 
 async function getAllUsers() {
     return await get("users").then(result => result.json())
@@ -15,7 +16,7 @@ async function createUser(username, email, password) {
         .then(credentials => {
             return credentials.user.getIdToken().then(token => {
                 // console.log('idtoken', token)
-                const url = BASE_URL + "users"
+                const url = API_URL + "users"
                 console.log({ url })
                 fetch(url, {
                     method: 'POST',
@@ -39,12 +40,18 @@ async function createUser(username, email, password) {
 }
 
 function useOtherAccount(accountId) {
+
     const [account, setAccount] = useState()
 
     useEffect(() => {
         get(`users/${accountId}`)
             .then(resp => resp.json())
-            .then(resp => setAccount(resp))
+            .then(account => {
+                setAccount({
+                    ...account,
+                    profilePicture: RESOURCE_URL + account.profilePicture
+                })
+            })
             .catch(err => console.log('error while retrieving account: ', err))
 
     }, [accountId])
@@ -52,9 +59,30 @@ function useOtherAccount(accountId) {
     return account
 }
 
+function useAccount(auth) {
+
+    const [account, setAccount] = useState()
+
+    useEffect(() => {
+        if (auth) currentUser()
+            .then(user => user.json())
+            .then(user => {
+                setAccount({
+                    ...user,
+                    profilePicture: RESOURCE_URL + user['profilePicture']
+                })
+            })
+            .catch(err => console.log('error getting user in useAccount', err))
+
+    }, [auth])
+
+    return {account}
+}
+
 export {
     getAllUsers,
     createUser,
     currentUser,
-    useOtherAccount
+    useOtherAccount,
+    useAccount
 }

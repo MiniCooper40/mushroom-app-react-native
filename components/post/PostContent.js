@@ -13,7 +13,7 @@ export default function PostContent({
     onInsights = undefined,
     sources,
     setIndex,
-    interactions = {likes: 0, comments: 0, userLikes: 0}
+    interactions = {likes: 0, comments: 0, userLikes: false}
 }) {
 
     // console.log("in PostContent w/ sources", sources)    
@@ -25,6 +25,7 @@ export default function PostContent({
                 onLike={onLike}
                 onComment={onComment}
                 onInsights={onInsights}
+                interactions={interactions}
             />
         </PostContentContainer>
     )

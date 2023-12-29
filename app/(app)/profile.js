@@ -7,10 +7,10 @@ import Explore from "../../components/explore/Explore";
 import useTheme from "../../style/useTheme";
 import AccountHeader from "../../components/account/AccountHeader";
 import { useEffect, useState } from "react";
-import useSession from "../../auth/useSession";
 import { getUserPosts } from "../../network/Post";
 import useProfileFeed from "../../components/account/useProfileFeed";
 import Loading from "../../components/loading/Loading";
+import {useSession} from "../../auth/Auth";
 
 export default function Page() {
 

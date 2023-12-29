@@ -1,12 +1,10 @@
-import { Text, View } from "react-native";
-import { router, useLocalSearchParams, Link } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import Post from "../../../components/post/Post";
 import { SheetManager } from 'react-native-actions-sheet'
 import PostFeedContainer from "../../../components/containers/PostFeedContainer";
-import { useEffect, useState } from "react";
-import { getPost } from "../../../network/Post";
-import usePost from "../../../components/post/usePost";
+import { usePost } from "../../../network/Post";
 import Loading from "../../../components/loading/Loading";
+import {RESOURCE_URL} from "../../../network/Network";
 
 export default function Page() {
 
@@ -17,20 +15,16 @@ export default function Page() {
 
     function onComment(id) {
         SheetManager.show('comments-sheet', {
-            payload: { postId: id, sheetId: 'comments-sheet' }
+            payload: { postId: postId, sheetId: 'comments-sheet' }
         })
     }
-
-
-
-    // console.log({ post })
 
     function getMedia() {
         return post.media.map(item => {
             let source = item.source
             return {
                 id: item.id,
-                source: "http://192.168.1.101:8080/"+source
+                source: RESOURCE_URL+source
             }
         })
     }
@@ -42,10 +36,10 @@ export default function Page() {
                 caption={post.caption}
                 interactions={{comments: post.comments, likes: post.likes, userLikes: false}}
                 media={getMedia()}
-                onComment={() => onComment(1)}
+                onComment={onComment}
                 onLike={() => console.log("liked post")}
                 onViewProfile={(() => router.replace(`account/${post['user_id']}`))}
-                profilePicture={"http://192.168.1.101:8080/"+post['profile_picture']}
+                profilePicture={RESOURCE_URL+post['profile_picture']}
             />
         </PostFeedContainer>
     )

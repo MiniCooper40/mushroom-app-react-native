@@ -10,16 +10,11 @@ import FormLabel from "../components/typography/FormLabel";
 import RoundedButton from "../components/input/buttons/RoundedButton";
 import TextButton from "../components/input/buttons/TextButton";
 import ImageBackground from "../components/containers/ImageBackground";
-import ThemeProvider from "../style/ThemeProvider";
 import { router } from 'expo-router'
-import { firebaseSignOut, setAuth, useAuth } from "../auth/Auth";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import useSession from "../auth/useSession";
-import SignUpModal from "../components/signup/SignUpModal";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import {useSession} from "../auth/Auth";
 
 export default function Page() {
-
-  const [signingUp, setSigningUp] = useState(true)
 
   const [username, setUsername] = useState()
   const [password, setPassword] = useState()

@@ -5,7 +5,13 @@ const TextField = ({text, onTextChange, style, placeholder="", placeholderTextCo
 
     const {styles} = useTheme()
 
-    return <TextInput value={text}  onChangeText={onTextChange} style={[styles.textField, style]} placeholder={placeholder} placeholderTextColor={placeholderTextColor} />
+    return <TextInput
+        value={text}
+        onChangeText={onTextChange}
+        style={[styles.textField, style]}
+        placeholder={placeholder}
+        placeholderTextColor={placeholderTextColor}
+    />
 }
 
 export default TextField
