@@ -9,8 +9,9 @@ import FormLabel from "../components/typography/FormLabel";
 import RoundedButton from "../components/input/buttons/RoundedButton";
 import ImageBackground from "../components/containers/ImageBackground";
 import { router } from 'expo-router'
-import { createUser } from "../network/User";
+import {createUser, handleSignUpAttempt} from "../network/User";
 import {useSession} from "../auth/Auth";
+import {getAuth} from "firebase/auth";
 
 export default function Page() {
 
@@ -26,13 +27,12 @@ export default function Page() {
 
   function handleSignUpAttempt() {
     createUser(username, email, password)
-        .then(credentials => {
-            console.log('signed up and got credentials: ', credentials)
-            setAuth(credentials)
-            router.replace("/")
-        })
-    
+        .then(() => setAuth(getAuth()))
+        .then(() => router.replace("/"))
+
   }
+
+
 
   return (
     <ImageBackground source={require('../assets/loginBackground.jpg')}>

@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Text, View } from 'react-native'
+import {Keyboard, Text, View} from 'react-native'
 import ActionSheet, { FlatList, SheetManager } from 'react-native-actions-sheet'
 import useTheme from '../style/useTheme'
 import Comment from '../components/comment/Comment'
@@ -50,6 +50,12 @@ export default function CommentsSheet(props) {
         })
     }
 
+    function handleCommentSubmit() {
+        createComment(comment)
+        Keyboard.dismiss()
+        setComment(undefined)
+    }
+
     return (
         <ActionSheet containerStyle={styles.actionSheet} id={sheetId}>
             <SheetHeader
@@ -79,7 +85,7 @@ export default function CommentsSheet(props) {
                 onTextChange={setComment}
                 placeholder='Comment...'
                 Icon={() => <Feather name="send" size={24} color={colors.onPrimary} />}
-                onIconClicked={() => createComment(comment)}
+                onSubmit={handleCommentSubmit}
             />
         </ActionSheet>
     )

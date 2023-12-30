@@ -28,7 +28,7 @@ function useToken(auth) {
 
         getAuth()
             .onIdTokenChanged(userCredentials => {
-                userCredentials
+                if(userCredentials) userCredentials
                     .getIdToken()
                     .then(token => setToken(token))
             })

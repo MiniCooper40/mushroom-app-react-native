@@ -19,7 +19,11 @@ async function post(route, request = defaultRequest) {
 
     console.log('posting to', API_URL+route)
 
-    const token = await getAuth().currentUser.getIdToken()
+    const currentUser =  getAuth().currentUser
+
+    if(!currentUser) return Promise.reject("currentUser does not exist")
+
+    const token = await currentUser.getIdToken()
     //console.log('body is', body)
 
     return fetch(API_URL + route, {
@@ -39,7 +43,11 @@ async function get(route, request = defaultRequest) {
 
     console.log('getting from', API_URL+route)
 
-    const token = await getAuth().currentUser.getIdToken()
+    const currentUser =  getAuth().currentUser
+
+    if(!currentUser) return Promise.reject("currentUser does not exist")
+
+    const token = await currentUser.getIdToken()
 
     //console.log('getting w/ token', token)
 

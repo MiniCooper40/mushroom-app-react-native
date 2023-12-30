@@ -1,7 +1,7 @@
 import { TextInput } from "react-native"
 import useTheme from "../../../style/useTheme"
 
-const TextField = ({text, onTextChange, style, placeholder="", placeholderTextColor='black'}) => {
+const TextField = ({text, onTextChange, style, placeholder="", placeholderTextColor='black', onSubmitEditing=()=>{}}) => {
 
     const {styles} = useTheme()
 
@@ -11,6 +11,7 @@ const TextField = ({text, onTextChange, style, placeholder="", placeholderTextCo
         style={[styles.textField, style]}
         placeholder={placeholder}
         placeholderTextColor={placeholderTextColor}
+        onSubmitEditing={onSubmitEditing}
     />
 }
 

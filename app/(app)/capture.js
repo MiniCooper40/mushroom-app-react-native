@@ -12,7 +12,6 @@ export default function Page() {
         let result = await ImagePicker.launchCameraAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsMultipleSelection: true,
-            allowsMultipleSelection: true,
             quality: 1
         })
 
@@ -22,7 +21,6 @@ export default function Page() {
     async function handleLibraryMedia() {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsMultipleSelection: true,
             allowsMultipleSelection: true,
             quality: 1
         })

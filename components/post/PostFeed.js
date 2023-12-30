@@ -3,6 +3,8 @@ import Post from "./Post";
 import {RESOURCE_URL} from "../../network/Network";
 import {SheetManager} from "react-native-actions-sheet";
 import {getTimeAgo} from "../../style/DateFormat";
+import {Button} from "react-native";
+import {firebaseSignOut} from "../../auth/Auth";
 
 export default function PostFeed({posts}) {
 
@@ -46,6 +48,7 @@ export default function PostFeed({posts}) {
 
     return (
         <PostFeedContainer>
+            <Button title="Sign out" onPress={firebaseSignOut} />
             {generatePosts()}
         </PostFeedContainer>
     )

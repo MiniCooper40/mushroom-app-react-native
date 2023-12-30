@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {API_URL, get, RESOURCE_URL} from "./Network";
 import {createUserWithEmailAndPassword, getAuth} from "firebase/auth";
 import {useSession} from "../auth/Auth";
+import {router} from "expo-router";
 
 async function getAllUsers() {
     return await get("users").then(result => result.json())
@@ -12,6 +13,9 @@ async function currentUser() {
 }
 
 async function createUser(username, email, password) {
+
+    console.log('creating user with', username, email, password)
+
     return createUserWithEmailAndPassword(getAuth(), email, password)
         .then(credentials => {
             return credentials.user.getIdToken().then(token => {
@@ -28,16 +32,20 @@ async function createUser(username, email, password) {
                         username: username
                     })
                 })
-                    .then(resp => resp.status)
-                    .then(resp => console.log({ resp }))
+                    .then(() => {
+                        const auth = getAuth()
+                        console.log('auth after user created in firebase and backend', auth)
+                    })
                     .catch(err => console.log(`err on server req ${err}`))
 
-            }).then(() => credentials)
+            })
         })
         .catch(err => {
             console.log('error while signing in:', err)
         })
 }
+
+
 
 function useOtherAccount(accountId) {
 
@@ -67,6 +75,7 @@ function useAccount(auth) {
         if (auth) currentUser()
             .then(user => user.json())
             .then(user => {
+                console.log('in useAccount, got user', user)
                 setAccount({
                     ...user,
                     profilePicture: RESOURCE_URL + user['profilePicture']

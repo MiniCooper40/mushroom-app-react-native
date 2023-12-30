@@ -8,7 +8,7 @@ export default function IconTextField({
     text,
     onTextChange,
     placeholder = "",
-    onIconClicked = () => { },
+    onSubmit = () => { },
     iconStyle={},
     textFieldStyle={} 
 }) {
@@ -17,8 +17,8 @@ export default function IconTextField({
 
     return (
         <View style={[styles.horizontalFlex, { alignItems: 'center', justifyContent: 'space-between', paddingRight: 10 }]}>
-            <TextField placeholder={placeholder} text={text} onTextChange={onTextChange} style={{ backgroundColor: colors.primary, fontSize: 15 }} />
-            <IconButton Icon={Icon} onClick={onIconClicked} />
+            <TextField onSubmitEditing={onSubmit} placeholder={placeholder} text={text} onTextChange={onTextChange} style={{ backgroundColor: colors.primary, fontSize: 15 }} />
+            <IconButton Icon={Icon} onClick={onSubmit} />
         </View>
     )
 }
