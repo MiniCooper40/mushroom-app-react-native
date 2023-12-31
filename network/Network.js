@@ -3,7 +3,7 @@ import { getAuth } from "firebase/auth"
 const API_BASE_URL = "http://192.168.1.101:8080/"
 const API_VERSION = 'v1'
 export const API_URL = `${API_BASE_URL}${API_VERSION}/`
-export const RESOURCE_URL = "http://192.168.1.101:8080/"
+export const RESOURCE_URL = ""//"http://192.168.1.101:8080/"
 
 
 const defaultRequest = {
@@ -34,6 +34,30 @@ async function post(route, request = defaultRequest) {
         },
         body: JSON.stringify(body),
         method: 'POST'
+    })
+}
+
+async function postFormData(route, formData , headers={}) {
+
+
+    // console.log('form data is', formData)
+
+    console.log('posting to', API_URL+route)
+
+    const currentUser =  getAuth().currentUser
+
+    if(!currentUser) return Promise.reject("currentUser does not exist")
+
+    const token = await currentUser.getIdToken()
+
+    return fetch(API_URL + route, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": 'multipart/form-data'
+        },
+        body: formData,
+        method: 'POST',
+        redirect: 'follow'
     })
 }
 
@@ -79,4 +103,4 @@ async function del(route, request = defaultRequest) {
 
 
 
-export { get, post, del }
+export { get, post, del, postFormData }

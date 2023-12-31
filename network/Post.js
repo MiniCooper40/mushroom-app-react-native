@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react"
-import {del, get, post} from "./Network"
+import {del, get, post, postFormData, RESOURCE_URL} from "./Network"
 import {useSession} from "../auth/Auth";
+import { Buffer } from "buffer";
 
 function getUserPosts(userId) {
     return get(`posts/user/${userId}`)
@@ -20,6 +21,34 @@ function getExploreFeed() {
 
 function getCommentsOnPost(postId) {
     return get(`posts/comments/post/${postId}`)
+}
+
+function createPost(files, caption) {
+    const formData = new FormData()
+
+    console.log('got files in createPost')
+
+    files.forEach(file => {
+        let localUri = file.uri;
+        let filename = localUri.split('/').pop();
+
+        let match = /\.(\w+)$/.exec(filename);
+        let type = match ? `image/${match[1]}` : `image`;
+
+        console.log({filename, localUri, type})
+        // formData.append('files', file.base64)
+        formData.append('files', {
+            name: filename,
+            uri: localUri,
+            type: type
+        })
+    })
+
+    formData.append("caption", caption)
+
+    // console.log('formData', formData)
+
+    return postFormData("posts", formData)
 }
 
 function commentOnPost(postId, comment) {
@@ -58,6 +87,8 @@ function usePost(postId) {
         setPost(undefined)
         getPost(postId)
             .then(post => post.json())
+            .then(formatTimestamp)
+            .then(formatResource('profile_picture', 'profilePicture'))
             .then(post => setPost(post))
     }, [postId])
 
@@ -127,6 +158,24 @@ function formatTimestamps(items) {
     return items.map(formatTimestamp)
 }
 
+function formatResource(resource, newResourceName=resource) {
+    return function(item) {
+        const formatted = {...item}
+        formatted[newResourceName] = RESOURCE_URL + item[resource]
+
+        delete formatted[resource]
+
+        return formatted
+    }
+}
+
+function formatResources(resource, newResourceName=resource) {
+    return function(items) {
+        const formatter = formatResource(resource, newResourceName)
+        return items.map(formatter)
+    }
+}
+
 function useComments(postId) {
 
     const [comments, setComments] = useState([])
@@ -179,5 +228,6 @@ export {
     usePost,
     likePost,
     useInteractions,
-    useComments
+    useComments,
+    createPost
 }

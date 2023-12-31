@@ -5,6 +5,7 @@ import PostFeedContainer from "../../../components/containers/PostFeedContainer"
 import {useInteractions, usePost} from "../../../network/Post";
 import Loading from "../../../components/loading/Loading";
 import {RESOURCE_URL} from "../../../network/Network";
+import {getTimeAgo} from "../../../style/DateFormat";
 
 export default function Page() {
 
@@ -12,12 +13,6 @@ export default function Page() {
     const { post: postId } = params
 
     const post = usePost(postId)
-
-    console.log("post in [post].js", post)
-
-    // const {userLikes, likes, comments} = useInteractions({
-    //     likes: post.likes, comments: post.comments, userLikes: post['user_likes']
-    // })
 
     function onComment(id) {
         SheetManager.show('comments-sheet', {
@@ -35,6 +30,8 @@ export default function Page() {
         })
     }
 
+
+
     if (post) return (
         <PostFeedContainer>
             <Post
@@ -45,8 +42,9 @@ export default function Page() {
                 onComment={onComment}
                 onLike={() => console.log("liked post")}
                 onViewProfile={(() => router.replace(`account/${post['user_id']}`))}
-                profilePicture={RESOURCE_URL+post['profile_picture']}
+                profilePicture={post.profilePicture}
                 id={post['post_id']}
+                time={getTimeAgo(post['timestamp'])}
             />
         </PostFeedContainer>
     )

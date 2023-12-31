@@ -15,7 +15,7 @@ export default function PostMetaData({
         <View>
             <Text style={{ fontWeight: 'bold' }}>{username}</Text>
             <View style={[styles.horizontalFlex, styles.smallGap]}>
-                <Text style={styles.postInfoSubtext}>{`${time} ago`}</Text>
+                <Text style={styles.postInfoSubtext}>{`${time} ago `}</Text>
             </View>
         </View>
     )

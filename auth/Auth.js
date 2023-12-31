@@ -30,7 +30,10 @@ function useToken(auth) {
             .onIdTokenChanged(userCredentials => {
                 if(userCredentials) userCredentials
                     .getIdToken()
-                    .then(token => setToken(token))
+                    .then(token => {
+                        setToken(token)
+                        // console.log('token is, ', token)
+                    })
             })
 
     }, [auth])

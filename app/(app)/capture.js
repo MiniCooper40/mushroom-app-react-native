@@ -5,6 +5,7 @@ import useTheme from '../../style/useTheme'
 import Button from '../../components/input/buttons/Button'
 import { currentUser, getAllUsers } from '../../network/User'
 import { useEffect, useState } from 'react'
+import {createPost} from "../../network/Post";
 
 export default function Page() {
 
@@ -12,20 +13,35 @@ export default function Page() {
         let result = await ImagePicker.launchCameraAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsMultipleSelection: true,
-            quality: 1
+            quality: 1,
+            base64: true
         })
 
         console.log({ result })
     }
 
     async function handleLibraryMedia() {
-        let result = await ImagePicker.launchImageLibraryAsync({
+        let results = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsMultipleSelection: true,
-            quality: 1
+            quality: 1,
+            base64: true
         })
 
-        console.log({ result })
+        console.log({ results })
+
+        // console.log('results.assets', results.assets)
+
+        const files = results.assets
+
+        
+        createPost(
+            files,
+            "Test post"
+        )
+            .then(resp => resp.json())
+            .then(resp => console.log('got post creation response', resp))
+            .catch(err => console.log("error while creating post", err))
     }
 
     const { colors } = useTheme()

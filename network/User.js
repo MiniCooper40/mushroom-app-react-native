@@ -75,7 +75,7 @@ function useAccount(auth) {
         if (auth) currentUser()
             .then(user => user.json())
             .then(user => {
-                console.log('in useAccount, got user', user)
+                // console.log('in useAccount, got user', user)
                 setAccount({
                     ...user,
                     profilePicture: RESOURCE_URL + user['profilePicture']

@@ -56,6 +56,8 @@ export default function Post({
         })
     }
 
+    console.log("in post, sources are", media.map(m => m.source))
+
     // console.log({currentInteractions})
 
 
