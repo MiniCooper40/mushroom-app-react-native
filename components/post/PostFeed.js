@@ -5,6 +5,7 @@ import {SheetManager} from "react-native-actions-sheet";
 import {getTimeAgo} from "../../style/DateFormat";
 import {Button} from "react-native";
 import {firebaseSignOut} from "../../auth/Auth";
+import {router} from "expo-router";
 
 export default function PostFeed({posts}) {
 
@@ -15,7 +16,7 @@ export default function PostFeed({posts}) {
     // }
     function generatePosts() {
 
-        //console.log('posts in generatePosts', posts)
+        console.log('posts in generatePosts', posts)
 
         return posts.map(post => {
             let media = post.media.map(media => {
@@ -28,6 +29,7 @@ export default function PostFeed({posts}) {
                 key={post['post_id']}
                 username={post.username}
                 time={getTimeAgo(post.timestamp)}
+                onViewProfile={(() => router.push(`account/${post['user_id']}`))}
                 media={media}
                 interactions={{
                     comments: post.comments,

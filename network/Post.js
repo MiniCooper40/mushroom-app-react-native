@@ -24,10 +24,10 @@ function getCommentsOnPost(postId) {
     return get(`posts/comments/post/${postId}`)
 }
 
-function createPost(files, caption) {
+function processMediaAndCreatePost(files, caption) {
     const formData = new FormData()
 
-    console.log('got files in createPost')
+    // console.log('got files in processMediaAndCreatePost')
 
     files.forEach(file => {
         let localUri = file.uri;
@@ -36,7 +36,7 @@ function createPost(files, caption) {
         let match = /\.(\w+)$/.exec(filename);
         let type = match ? `image/${match[1]}` : `image`;
 
-        console.log({filename, localUri, type})
+        // console.log({filename, localUri, type})
         // formData.append('files', file.base64)
         formData.append('files', {
             name: filename,
@@ -94,6 +94,10 @@ function usePost(postId) {
         setPost(undefined)
         getPost(postId)
             .then(post => post.json())
+            .then(post => {
+                // console.log('got post: ', post)
+                return post
+            })
             .then(formatTimestamp)
             .then(formatResource('profile_picture', 'profilePicture'))
             .then(post => setPost(post))
@@ -229,12 +233,28 @@ function useComments(postId) {
     }
 }
 
+async function getCameraMedia() {
+    return (await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsMultipleSelection: true,
+        quality: 1
+    })).assets
+}
+
+async function getLibraryMedia() {
+    return (await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsMultipleSelection: true,
+        quality: 1,
+    })).assets
+}
+
+
 async function postFromCameraMedia() {
     let result = await ImagePicker.launchCameraAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsMultipleSelection: true,
-        quality: 1,
-        base64: true
+        quality: 1
     })
 
     console.log({ result })
@@ -250,12 +270,25 @@ async function postFromLibraryMedia() {
 
     const files = results.assets
 
-    createPost(
+    processMediaAndCreatePost(
         files,
         "Test post"
     )
         .then(resp => resp.json())
         .then(resp => console.log('got post creation response', resp))
+        .catch(err => console.log("error while creating post", err))
+}
+
+function createPost(media, caption) {
+    return processMediaAndCreatePost(
+        media,
+        caption
+    )
+        .then(resp => resp.json())
+        .then(resp => {
+            console.log('got response', resp)
+            return resp
+        })
         .catch(err => console.log("error while creating post", err))
 }
 
@@ -268,7 +301,10 @@ export {
     likePost,
     useInteractions,
     useComments,
-    createPost,
+    processMediaAndCreatePost,
     postFromLibraryMedia,
-    postFromCameraMedia
+    postFromCameraMedia,
+    getLibraryMedia,
+    getCameraMedia,
+    createPost
 }

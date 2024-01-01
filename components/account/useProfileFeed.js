@@ -16,5 +16,10 @@ export default function useProfileFeed(userId) {
             .catch(err => console.log('error getting user posts', err))
     }, [token, userId])
 
-    return {posts}
+    function addPost(post) {
+        // console.log('adding post', post)
+        setPosts(state => [post, ...state])
+    }
+
+    return {posts, addPost}
 }

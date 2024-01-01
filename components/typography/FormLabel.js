@@ -6,7 +6,7 @@ const FormLabel = ({style, text}) => {
     const {styles} = useTheme()
 
     return (
-        <Text style={[style, styles.formLabel]}>{text}</Text>
+        <Text style={[styles.formLabel,style]}>{text}</Text>
     )
 }
 

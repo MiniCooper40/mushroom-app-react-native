@@ -9,8 +9,6 @@ export default function PostProfilePicture({
     size=40
 }) {
 
-    console.log('post profile picture', profilePicture)
-
     return (
         <Pressable onPress={onViewProfile}> 
             <Image

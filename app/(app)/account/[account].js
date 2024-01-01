@@ -15,8 +15,8 @@ export default function Page() {
     if(userId === userAccount.id) return <Redirect href="profile" />
 
     const {posts} = useProfileFeed(userId)
-    const account = useOtherAccount(userId)
-    
+    const {account, isFollowing, toggleIsFollowing} = useOtherAccount(userId)
+
     function getPosts() {
         return posts.map(post => {
             return {
@@ -26,11 +26,26 @@ export default function Page() {
         })
     }
 
-    if(posts) return (
+    function getNumberOfFollowers() {
+        if(isFollowing !== account['user_follows']) {
+            if(!isFollowing) return account.followers-1;
+            else return account.followers+1
+        }
+        else return account.followers
+    }
+
+    const getUpdatedAccount = () => {
+        return {
+            ...account,
+            followers: getNumberOfFollowers()
+        }
+    }
+
+    if(posts && account) return (
         <Explore
             posts={getPosts()}
             Header={() => {
-                return <AccountHeader account={account} action="Follow" />
+                return <AccountHeader account={getUpdatedAccount()} action={isFollowing ? "Unfollow" : "Follow"} onAction={toggleIsFollowing} />
             }}
         />
     )

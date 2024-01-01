@@ -2,12 +2,14 @@ import useTheme from "../../../style/useTheme"
 import Button from "./Button"
 
 
-const RoundedButton = ({title, onClick, buttonStyle, textStyle}) => {
+const RoundedButton = ({title, onClick, buttonStyle, textStyle, disabled=false}) => {
 
     const {styles} = useTheme()
 
+    const opacity = disabled ? 0.5 : 1
+
     return (
-        <Button title={title} onClick={onClick} textStyle={textStyle} buttonStyle={[styles.roundedButton, buttonStyle]}/>
+        <Button disabled={disabled} title={title} onClick={onClick} textStyle={textStyle} buttonStyle={[styles.roundedButton, buttonStyle, {opacity}]}/>
     )
 }
 

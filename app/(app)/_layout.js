@@ -99,17 +99,7 @@ export default function Layout() {
                         }
                     }}
                 />
-                <Tabs.Screen
-                    name="capture"
-                    options={{
-                        tabBarLabel: "Capture",
-                        ...tabBarItemStyle,
-                        tabBarIcon: ({ focused, size }) => {
-                            let opacity = focused ? 0.5 : 1
-                            return <Ionicons style={{ opacity: opacity }} name="camera-outline" size={size} color={colors.onSecondary} />
-                        }
-                    }}
-                />
+
                 <Tabs.Screen
                     name="profile"
                     options={{

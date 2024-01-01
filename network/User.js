@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {API_URL, get, RESOURCE_URL} from "./Network";
+import {API_URL, get, post, RESOURCE_URL} from "./Network";
 import {createUserWithEmailAndPassword, getAuth} from "firebase/auth";
 import {useSession} from "../auth/Auth";
 import {router} from "expo-router";
@@ -45,16 +45,21 @@ async function createUser(username, email, password) {
         })
 }
 
-
+function followUser(userId) {
+    return post(`users/follow/${userId}`)
+}
 
 function useOtherAccount(accountId) {
 
     const [account, setAccount] = useState()
+    const {isFollowing, toggleIsFollowing, setIsFollowing} = useFollow(accountId)
 
     useEffect(() => {
         get(`users/${accountId}`)
             .then(resp => resp.json())
             .then(account => {
+                console.log('got other account: ', account)
+                setIsFollowing(account['user_follows'])
                 setAccount({
                     ...account,
                     profilePicture: RESOURCE_URL + account.profilePicture
@@ -64,7 +69,7 @@ function useOtherAccount(accountId) {
 
     }, [accountId])
 
-    return account
+    return {account, isFollowing, toggleIsFollowing}
 }
 
 function useAccount(auth) {
@@ -75,7 +80,7 @@ function useAccount(auth) {
         if (auth) currentUser()
             .then(user => user.json())
             .then(user => {
-                // console.log('in useAccount, got user', user)
+                console.log('in useAccount, got user', user)
                 setAccount({
                     ...user,
                     profilePicture: RESOURCE_URL + user['profilePicture']
@@ -86,6 +91,22 @@ function useAccount(auth) {
     }, [auth])
 
     return {account}
+}
+
+function useFollow(userId, isInitiallyFollowing) {
+
+    const [isFollowing, setIsFollowing] = useState(isInitiallyFollowing)
+
+    function toggleIsFollowing() {
+        setIsFollowing(prev => !prev)
+        followUser(userId)
+            .catch(err => {
+                setIsFollowing(prev => !prev)
+                console.log('error while following:', err)
+            })
+    }
+
+    return {isFollowing, toggleIsFollowing, setIsFollowing}
 }
 
 export {

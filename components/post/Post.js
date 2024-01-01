@@ -14,6 +14,7 @@ import CommentModal from "../../sheets/CommentsSheet";
 import Button from "../input/buttons/Button";
 import { SheetManager } from 'react-native-actions-sheet'
 import {likePost, useInteractions} from "../../network/Post";
+import {post} from "../../network/Network";
 
 /*
 {
@@ -56,9 +57,10 @@ export default function Post({
         })
     }
 
-    console.log("in post, sources are", media.map(m => m.source))
+    // console.log("in post, sources are", media.map(m => m.source))
 
     // console.log({currentInteractions})
+    // console.log('in post with', media)
 
 
     const currentMediaInsights = media[index].insights

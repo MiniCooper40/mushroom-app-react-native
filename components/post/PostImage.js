@@ -14,7 +14,7 @@ export default function PostImage({ imageSource, setHeight=() => {} }) {
 
     let style = dimensions ? { width: dimensions.width, height: dimensions.height } : undefined
 
-    console.log('post image has media', imageSource)
+    // console.log('post image has media', imageSource)
 
     return (
         <PostImageContainer>

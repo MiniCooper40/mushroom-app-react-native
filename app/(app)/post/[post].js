@@ -41,7 +41,7 @@ export default function Page() {
                 media={getMedia()}
                 onComment={onComment}
                 onLike={() => console.log("liked post")}
-                onViewProfile={(() => router.replace(`account/${post['user_id']}`))}
+                onViewProfile={(() => router.push(`account/${post['user_id']}`))}
                 profilePicture={post.profilePicture}
                 id={post['post_id']}
                 time={getTimeAgo(post['timestamp'])}
