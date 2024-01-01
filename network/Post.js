@@ -2,6 +2,7 @@ import {useEffect, useState} from "react"
 import {del, get, post, postFormData, RESOURCE_URL} from "./Network"
 import {useSession} from "../auth/Auth";
 import { Buffer } from "buffer";
+import * as ImagePicker from "expo-image-picker";
 
 function getUserPosts(userId) {
     return get(`posts/user/${userId}`)
@@ -72,8 +73,14 @@ function useExploreFeed() {
     useEffect(() => {
         if(token) getExploreFeed()
             .then(resp => resp.json())
-            .then(resp => resp.posts)
-            .then(formatTimestamps)
+            .then(resp => {
+                // console.log('got response ', resp)
+                return resp.posts
+            })
+            .then(posts => {
+                // console.log('got posts', posts)
+                return formatTimestamps(posts)
+            })
             .then(setPosts)
     }, [token])
 
@@ -155,6 +162,7 @@ function formatTimestamp(item) {
     }
 }
 function formatTimestamps(items) {
+    // console.log('formatting timestamps', items)
     return items.map(formatTimestamp)
 }
 
@@ -221,6 +229,37 @@ function useComments(postId) {
     }
 }
 
+async function postFromCameraMedia() {
+    let result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsMultipleSelection: true,
+        quality: 1,
+        base64: true
+    })
+
+    console.log({ result })
+}
+
+async function postFromLibraryMedia() {
+    let results = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsMultipleSelection: true,
+        quality: 1,
+    })
+
+
+    const files = results.assets
+
+    createPost(
+        files,
+        "Test post"
+    )
+        .then(resp => resp.json())
+        .then(resp => console.log('got post creation response', resp))
+        .catch(err => console.log("error while creating post", err))
+}
+
+
 export {
     getUserPosts,
     getPost,
@@ -229,5 +268,7 @@ export {
     likePost,
     useInteractions,
     useComments,
-    createPost
+    createPost,
+    postFromLibraryMedia,
+    postFromCameraMedia
 }

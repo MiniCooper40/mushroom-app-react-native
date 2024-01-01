@@ -9,18 +9,13 @@ export default function PostProfilePicture({
     size=40
 }) {
 
-    const {token} = useSession()
+    console.log('post profile picture', profilePicture)
 
     return (
         <Pressable onPress={onViewProfile}> 
             <Image
                 style={{ height: size, width: size, resizeMode: 'cover', borderRadius: 20, overflow: 'hidden' }}
-                source={{
-                    uri: profilePicture,
-                    headers: {
-                        Authorization: token
-                    }
-                }}
+                source={profilePicture}
                 placeholder={BLUR_HASH}
                 contentFit="cover"
                 transition={1000}
